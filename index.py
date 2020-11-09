@@ -193,7 +193,7 @@ def Options_local(ch):
 #Functions for Credits
 def Credits():
 	os.system("tput setaf 11")
-	print("\t\t\t\t\t\t\tMade By : Gursimar Singh, Janhavi Jain, Kodgire Ashutosh and Akshit")
+	print("\t\t\t\t\t\t\tMade By : Gursimar Singh, Janhavi Jain, Kodgire Ashutosh, Sourav Pattnaik and Akshit")
 	print("\n")
 	os.system("tput setaf 7")
 
