@@ -119,7 +119,8 @@ def Task():
 	Press 5: To configure SSH_Server
 	Press 6: To Start Docker 
 	Press 7: To Create LVM Partition
-	Press 8: To Exit
+	Press 8: To Start AWS CLI
+	Press 9: To Exit
 	""")
 	
 #Function Asking the Available Options from user to perform that task
@@ -181,8 +182,81 @@ def Options_local(ch):
 			os.system("cd /"+mp)
 			exit()
 
-
 		elif int(ch)==8:
+			import os
+	os.system("tput setaf 1")
+	print("\t\t\tWelcome To AWS CLI Automation")
+	os.system("tput setaf 7")
+	print("\t\t\t------------------------------")
+	os.system("aws configure")
+
+	while True:
+		os.system("clear")
+		os.system("tput setaf 3")
+		print("""	
+		Press 1: To Launch EC2 Instance	
+		Press 2: To Create Security Group	
+		Press 3: To Create Key Pair	
+		Press 4: To Launch EBS Volume	
+		Press 5: To Attach EBS Volume With EC2 Instance 	
+		Press 6: To Launched S3 Buckets	
+		Press 7: To List S3 Buckets
+		Press 8: To Create Cloud Front Distribution
+		Press 9: To Exit	
+		""")
+		os.system("tput setaf 6")
+		i = int(input("Enter Your Choice :"))
+		print(i)
+		if i==1:
+			k1 = input("Enter Your Key Pair Name :")
+			sgi = input("Enter Your Security Group ID :")
+			si = input("Enter Your Subnet ID :")
+			iid = input("Enter Your Image ID :")
+			os.system("aws ec2 run-instances --image-id "+iid+" --instance-type t2.micro --count 1 --subnet-id "+si+" --security-group-ids "+sgi+" --key-name "+k1)
+			os.system("tput setaf 7")
+			print("------------------------EC2 Instance Launched Successfully---------------------------")
+		elif i==2:
+			gn = input("Enter Security Group Name :")
+			gd = input("Enter Name Of your Security Group :")
+			os.system("aws ec2 create-security-group --description "+gd+" --group-name "+gn)
+			os.system("tput setaf 7")
+			print("--------------------Security Group Launched Successfully----------------------")
+
+		elif i==3:
+			k = input("Enter Name Of Your Key Pair :")
+			os.system("aws ec2 create-key-pair --key-name "+k)
+			print("-------------------- Key Pair Created Successfully----------------------")
+		elif i==4:
+			az = input("Enter Availability Zone :")
+			vt = input("Enter Volume Type :")
+			si = input("Enter Size Of EBS Volume in GB :")
+			os.system("aws ec2 create-volume --availability-zone "+az+" --volume-type "+vt+" --size "+si)
+			print("-------------------- EBS Volume Launched Successfully----------------------")
+		elif i==5:
+			vi = input("Enter Your EBS Volume ID :")
+			iii = input("Enter Your Instance ID :")
+			di = input("Enter Your Device Name /dev/.. :")
+			os.system("aws ec2 attach-volume  --volume-id "+vi+"  --instance-id "+iii+ "--device "+di)
+			print("-------------------- EBS Volume Attached Successfully----------------------")
+		elif i==6:
+			bn = input("Enter Your Bucket Name :")
+			os.system("aws s3 mb s3://"+bn)
+			print("-------------------- S3 Bucket Created Successfully----------------------")
+		elif i==7:
+			bnn = input("Enter Your Bucket Name :")
+			os.system("aws s3 ls s3://"+bnn)
+		elif i==8:
+			bnnn = ("Enter S3 Bucket Name :")
+			im = ("Enter Image Name :")
+			os.system("aws cloudfront create-distribution --origin-domain-name "+bnnn+".s3.amazonaws.com --default-root-object "+im)
+			print("-------------------- Cloud Front Distribution Created Successfully----------------------")
+		elif i==9:
+		exit()
+
+		
+	
+
+		elif int(ch)==9:
 			Credits()
 			exit()
 
@@ -193,7 +267,7 @@ def Options_local(ch):
 #Functions for Credits
 def Credits():
 	os.system("tput setaf 11")
-	print("\t\t\t\t\t\t\tMade By : Gursimar Singh, Janhavi Jain, Kodgire Ashutosh and Akshit")
+	print("\t\t\t\t\t\t\tMade By : Gursimar Singh, Janhavi Jain, Sourav Pattnaik, Kodgire Ashutosh and Akshit")
 	print("\n")
 	os.system("tput setaf 7")
 
