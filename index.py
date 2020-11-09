@@ -2,6 +2,89 @@
 import os
 #importing getpass for echo back less authentication
 import getpass
+#importing libraries for making the application speech friendly
+import os
+import pyttsx3 as tts
+import speech_recognition as sr
+
+#---------------------------------speech part---------------------------------------------------
+
+
+def spoken_input():
+
+	wel= "Hello, welcome to our Tech Menu. Please say the option number you would like to choose."
+	tts.speak(wel)
+	a=  """
+		Press 1: To Check Date
+		Press 2: To Check Calender
+		Press 3: To Add User
+		Press 4: To Configure Web_server
+		Press 5: To configure SSH_Server
+		Press 6: To Start Docker 
+		Press 7: To Exit
+		""" 
+	tts.speak(a)  #this allows the device to instruct the user using speech
+
+	r = sr.Recognizer()
+	mic = sr.Microphone()
+
+
+	with mic as source:
+		r.adjust_for_ambient_noise(source)
+		audio= r.listen(source)
+	x= r.recognize_google(audio)
+	p= x.lower()
+	print("You said: ",p)
+	
+
+	# converting spoken input into integer form for the program
+	while (p!= 'seven'):
+		if p=='one':
+			ch=1
+			tts.speak('Command is being executed')
+			return ch
+
+		elif p=='two':
+			ch=2
+			tts.speak('Command is being executed')
+			return ch
+
+		elif p=='three':
+			ch=3
+			tts.speak('Command is being executed')
+			return ch
+
+		elif p=='four':
+			ch=4
+			tts.speak('Command is being executed')
+			return ch
+
+		elif p=='five':
+			ch=5
+			tts.speak('Command is being executed')
+			return ch
+
+		elif p=='six':
+			ch=6
+			tts.speak('Command is being executed')
+			return ch
+
+		elif p=='seven':
+			ch=7
+			tts.speak('Command is being executed')
+			ex='Menu closed. Have a lovely day!'
+			print(ex)
+			tts.speak(ex)
+			return ch
+
+		else:
+			tts.speak('number not found in the menu')
+			ch=7
+			ex='Menu closed. Have a lovely day!'
+			print(ex)
+			tts.speak(ex)
+			return ch
+
 
 print("\n")
 
@@ -94,7 +177,7 @@ def Options_local(ch):
 			os.system("mkfs.ext4 /dev/"+v+"/"+l)
 			#mounting LVM
 			os.system("mkdir /"+mp)
-			os.system("mount /dev/"+v+"/"+n+" "+"/"+mp)
+			os.system("mount /dev/"+v+"/"+l+" "+"/"+mp)
 			os.system("cd /"+mp)
 			exit()
 
@@ -110,24 +193,25 @@ def Options_local(ch):
 #Functions for Credits
 def Credits():
 	os.system("tput setaf 11")
-	print("\t\t\t\t\t\t\tMade By Gursimar Singh")
+	print("\t\t\t\t\t\t\tMade By : Gursimar Singh, Janhavi Jain, Kodgire Ashutosh and Akshit")
 	print("\n")
 	os.system("tput setaf 7")
+
 	
 
 #Function with various options and their working for Remote System call
 def Options_remote(ch):
 		os.system("tput setaf 6")
 		if int(ch)==1:
-			os.print("ssh {} date".format(ip_address))
+			os.system("ssh {} date".format(ip_address))
 
 		elif int(ch)==2:
-			os.print("ssh {} cal".format(ip_address))
+			os.system("ssh {} cal".format(ip_address))
 
 		elif int(ch)==3:
 			print("Name of the User you want to Add: ", end="")
 			create_user=input()
-			os.print("ssh {} useradd {}".format(ip_address,create_user))
+			os.system("ssh {} useradd {}".format(ip_address,create_user))
 
 		elif int(ch)==4:
     			print("")	#Change print in all options to os.system when actually working with
